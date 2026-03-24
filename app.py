@@ -68,3 +68,34 @@ def index_channel(channel_url: str):
 
 index_channel("https://www.youtube.com/@AndrejKarpathy/videos")
 
+def query_channel(question: str) -> dict:
+    # Search accross all indexed videos and generate an answer
+    q_embedding = get_embedding(question)
+    results = collection.query(
+        query_embeddings=[q_embedding],
+        n_results=5
+    )
+    context = "\n\n".join(results['documents'][0])
+    sources = [m ["url"] for m in results['metadatas'][0]]
+
+    prompt = f"""Answer the question  using ONLY the Youtube video transcripts below. 
+    Include which video(s) the information came from.
+    
+    Context:
+    {context}
+    Question: {question}
+    Answer:"""
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "system", "content": prompt}]"}
+    )
+    return {
+        "answer": response.choices[0].message.content, 
+        "sources": list(set(sources))
+    }
+
+# Example query
+result = query_channel("What does this creator say about transformers?")
+print("Answer:", result["answer"])
+print("Sources:", result["sources"])
+
