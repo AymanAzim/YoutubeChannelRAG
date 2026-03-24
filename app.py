@@ -41,3 +41,30 @@ def get_embedding(text: str) -> list:
     )
     return response.data[0].embedding
 
+def index_channel(channel_url: str):
+    # Fetch, transcribe, embed, and store all channel videos
+    print(f" Fetching video IDs from channel...")
+    video_ids = get_channel_video_ids(channel_url)
+    print(f" Found {len(video_ids)} videos")
+
+    indexed = 0
+    for video_id in video_ids:
+        transcript= get_transcript(video_id)
+        if not transcript: 
+            continue
+        chunks = chunk_text(transcript)
+        for i, chunk in enumerate(chunks):
+            embedding = get_embedding(chunk)
+            collection.add(
+                documents=[chunk],
+                embeddings=[embedding],
+                ids=[f"{video_id}_chunk_{i}"]
+                metadata=[{"video_id": video_id, "url": f"https://www.youtube.com/watch?v={video_id}"}]
+            )
+        indexed += 1
+        print(f" Indexed video  {indexed}/{len(video_ids)}: {video_id}")
+
+    print(f"Indexing complete. Total videos indexed: {indexed}")
+
+index_channel("https://www.youtube.com/@AndrejKarpathy/videos")
+
