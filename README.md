@@ -7,9 +7,10 @@ Built with Streamlit, OpenAI, ChromaDB, and yt-dlp.
 ## Screenshots
 
 <!-- Add your screenshots here -->
-<!-- ![Home](screenshots/home.png) -->
-<!-- ![Indexing](screenshots/indexing.png) -->
-<!-- ![Query Result](screenshots/query_result.png) -->
+![Home](screenshots/screenshot1.png) 
+![Indexing](screenshots/screenshot2.png)
+![indexed](screenshots/screenshot3.png)
+![Query Result](screenshots/screenshot4.png) 
 
 ## How It Works
 
