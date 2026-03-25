@@ -1,0 +1,5 @@
+openai
+chromadb
+yt-dlp
+youtube-transcript-api
+streamlit
