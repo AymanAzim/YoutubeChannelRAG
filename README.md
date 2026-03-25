@@ -29,7 +29,7 @@ Built with Streamlit, OpenAI, ChromaDB, and yt-dlp.
 ### Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YoutubeChannelRAG.git
+git clone https://github.com/AymanAzim/YoutubeChannelRAG.git
 cd YoutubeChannelRAG
 python -m venv .venv
 source .venv/bin/activate
