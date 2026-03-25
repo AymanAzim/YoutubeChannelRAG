@@ -1,9 +1,12 @@
 import os
 from typing import List
+from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
 from yt_dlp import YoutubeDL
 from openai import OpenAI
 import chromadb
+
+load_dotenv()
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 chroma_client = chromadb.Client()
